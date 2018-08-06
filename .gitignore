@@ -101,3 +101,6 @@ modules.xml
 
 
 # End of https://www.gitignore.io/api/intellij+all
+*.iml
+/Java9Alchemy/.idea/modules.xml
+/Java9Alchemy/.idea/compiler.xml
