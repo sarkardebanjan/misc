@@ -1,7 +1,9 @@
 package com.training.domains;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 public class Application {
 
@@ -30,9 +32,8 @@ public class Application {
         //Task: List just names of customers whose ID is greater than 103
         custList.parallelStream().filter(customer -> customer.getCustomerNumber() > 103).map(customer -> customer.getCustomerName()).forEachOrdered(System.out::println);
 
-        MyConsumer<Customer> funcRef = (list) -> {
-            list.forEach(System.out::println);
-        };
+        MyConsumer<Customer> funcRef = (list) -> list.forEach(System.out::println);
+
         System.out.println(funcRef);
 
         System.out.println("Using Custom Functional Interface");
