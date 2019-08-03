@@ -30,7 +30,9 @@ public class TestMain {
         Map<Character, List<Student>> map = grouper.group(studentList, "getGender");
 
         map.keySet().forEach(gender -> {
-            Collections.sort(map.get(gender));
+            //Collections.sort(map.get(gender));
+            Sorter sorter = new Sorter();
+            sorter.sort((ArrayList)map.get(gender), "getAge");
         });
 
         map.keySet().forEach(key -> {
