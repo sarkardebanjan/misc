@@ -2,6 +2,8 @@ package open.generic.code.utils;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,17 +11,19 @@ import java.util.*;
 
 public class Sorter {
 
-    public <T, V> List<T> sort(List<T> listOfObjects, String sortingFieldGetterMethodName) {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Sorter.class);
+
+    public <T, V> List<T> sort(List<T> listOfObjects, String sortingFieldGetterMethodName, boolean isAscendingSort) {
 
         //Check if list is empty
         if (CollectionUtils.isEmpty(listOfObjects)) {
-            System.out.println("Supplied List is empty. Returning null.");
+            LOGGER.info("Supplied List is empty. Returning null.");
             return null;
         }
 
         //Check if sortingFieldGetterMethodName is provided
         if (StringUtils.isBlank(sortingFieldGetterMethodName)) {
-            System.out.println("Argument sortingFieldGetterMethodName is mandatory. Please provide a non blank String value. Returning list as received.");
+            LOGGER.info("Argument sortingFieldGetterMethodName is mandatory. Please provide a non blank String value. Returning list as received.");
             return listOfObjects;
         }
 
@@ -29,7 +33,7 @@ public class Sorter {
         try {
             getterMethod = objectClass.getDeclaredMethod(sortingFieldGetterMethodName, null);
         } catch (NoSuchMethodException nsme) {
-            System.out.println("There is no method named: " + sortingFieldGetterMethodName + " in the class: " + objectClass.getSimpleName() + ". Returning list as received.");
+            LOGGER.info("There is no method named: {} in the class: {}. Returning list as received.", sortingFieldGetterMethodName, objectClass.getSimpleName());
             nsme.printStackTrace();
             return listOfObjects;
         }
@@ -40,7 +44,7 @@ public class Sorter {
         try {
             compareToMethod = sortingFieldClass.getDeclaredMethod("compareTo", sortingFieldClass);
         } catch (NoSuchMethodException nsme) {
-            System.out.println("Class: " + sortingFieldClass.getName() + " does NOT contain a compareTo method. Returning list as received.");
+            LOGGER.info("Class: {} does NOT contain a compareTo method. Returning list as received.", sortingFieldClass.getName());
             nsme.printStackTrace();
             return listOfObjects;
         }
@@ -73,17 +77,18 @@ public class Sorter {
                 } else {
                     if (Objects.isNull(sortingFieldValue1)) {
                         listOfObjectWithNullSortingFieldValue.add(object1);
-                        return 1;
+                        return isAscendingSort ? 1 : -1;
                     } else {
                         listOfObjectWithNullSortingFieldValue.add(object2);
-                        return -1;
+                        return isAscendingSort ? -1 : 1;
                     }
                 }
             }
 
             //TODO Handle actual values
             try {
-                return (Integer) compareToMethod.invoke(sortingFieldValue1, sortingFieldValue2);
+                Integer comparisonResult = (Integer) compareToMethod.invoke(sortingFieldValue1, sortingFieldValue2);
+                return isAscendingSort ? comparisonResult : (-1 * comparisonResult);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }

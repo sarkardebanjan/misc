@@ -2,6 +2,8 @@ package open.generic.code.utils;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,12 +14,14 @@ import java.util.Map;
 
 public class Grouper {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Grouper.class);
+
     public <T, V> Map<V, List<T>> group(List<T> listOfObjects, String groupingFieldGetterMethodName) {
 
         Map<V, List<T>> groupedMap = null;
 
         if (StringUtils.isBlank(groupingFieldGetterMethodName)) {
-            System.out.println("Argument groupingFieldGetterMethodName is mandatory. Please provide a non blank String value. Returning null map.");
+            LOGGER.info("Argument groupingFieldGetterMethodName is mandatory. Please provide a non blank String value. Returning null map.");
             return null;
         }
 
@@ -28,7 +32,7 @@ public class Grouper {
             try {
                 getterMethod = objectClass.getDeclaredMethod(groupingFieldGetterMethodName, null);
             } catch (NoSuchMethodException nsme) {
-                System.out.println("There is no method named: " + groupingFieldGetterMethodName + " in the class: " + objectClass.getSimpleName() + ". Returning null map.");
+                LOGGER.info("There is no method named: {} in the class: {}. Returning null map.", groupingFieldGetterMethodName, objectClass.getSimpleName());
                 nsme.printStackTrace();
                 return null;
             }
@@ -44,18 +48,18 @@ public class Grouper {
                         groupedMap.put(groupingFieldValue, sameObjectGroupList);
                     }
                 } catch (IllegalAccessException e) {
-                    System.out.println("IllegalAccessException encountered while processing the supplied list. Returning null map.");
+                    LOGGER.info("IllegalAccessException encountered while processing the supplied list. Returning null map.");
                     e.printStackTrace();
                     return null;
                 } catch (InvocationTargetException e) {
-                    System.out.println("InvocationTargetException encountered while processing the supplied list. Returning null map.");
+                    LOGGER.info("InvocationTargetException encountered while processing the supplied list. Returning null map.");
                     e.printStackTrace();
                     return null;
                 }
             }
 
         } else {
-            System.out.println("Supplied List is empty. Returning null map.");
+            LOGGER.info("Supplied List is empty. Returning null map.");
             return null;
         }
 
