@@ -104,3 +104,7 @@ modules.xml
 *.iml
 /Java9Alchemy/.idea/modules.xml
 /Java9Alchemy/.idea/compiler.xml
+
+
+# Target directory
+/**/target/
