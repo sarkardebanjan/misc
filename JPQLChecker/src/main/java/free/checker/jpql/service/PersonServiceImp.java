@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
+@Service("personServiceImp")
 public class PersonServiceImp implements PersonService {
 
     @Autowired
