@@ -1,14 +1,8 @@
 package open.generic.code.utils;
 
-import jdk.internal.vm.compiler.collections.Pair;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Map;
-import java.util.Objects;
-
 public class Comparer {
 
+    /*
     private static final Logger LOGGER = LoggerFactory.getLogger(Comparer.class);
 
     public <T, V> Map<String, Pair<V, V>> compare (T oldObject, T newObject) {
@@ -33,11 +27,7 @@ public class Comparer {
                 }
             }
         }
-
-
-
-
     }
-
+    */
 
 }

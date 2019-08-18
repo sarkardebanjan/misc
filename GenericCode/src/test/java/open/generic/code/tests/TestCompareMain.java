@@ -14,6 +14,6 @@ public class TestCompareMain {
         Comparer comparer = new Comparer();
         Student oldObject = new Student("Donnie", 24, 'M');
         Student newObject = new Student("Donnie", 42, 'M');
-        comparer.compare(oldObject, newObject);
+        //comparer.compare(oldObject, newObject);
     }
 }

@@ -3,9 +3,6 @@ package open.generic.code.tests;
 import open.generic.code.utils.ExcelFormatter;
 import open.generic.code.utils.Formatter;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +20,9 @@ public class ExcelFormatterTest {
         strList.add("Line 2: Subject");
         strList.add("Line 3: Body");
         strList.add("Line 4: Footer and Signature");
-        Stream xlsxFile = excelFormatter.format(strList.stream(), String.class, File.class);
+
+        /*
+        byte[] xlsxFile = excelFormatter.format(strList.stream(), String.class, File.class);
 
         try (FileWriter fileWriter = new FileWriter(xlsxFile)) {
             fileWriter.
@@ -33,6 +32,7 @@ public class ExcelFormatterTest {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+        */
 
     }
 
