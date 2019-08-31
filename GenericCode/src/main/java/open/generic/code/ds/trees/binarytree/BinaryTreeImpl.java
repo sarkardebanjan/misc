@@ -30,11 +30,9 @@ public class BinaryTreeImpl {
             if (null != currentNode.getRightChild())
                 traverseTree(currentNode.getRightChild(), traverseOrder, traversalResult);
         } else if (TRAVERSE_ORDER.INORDER == traverseOrder) {
-            if (null != currentNode.getRightChild())
-                traverseTree(currentNode.getRightChild(), traverseOrder, traversalResult);
-            if (null != currentNode.getLeftChild())
-                traverseTree(currentNode.getLeftChild(), traverseOrder, traversalResult);
+            //TODO
         } else if (TRAVERSE_ORDER.POSTORDER == traverseOrder) {
+            //TODO
         }
         return traversalResult;
     }
@@ -57,12 +55,13 @@ public class BinaryTreeImpl {
             insertNodeIntoTree(rootNode, node);
         }
 
-        StringBuilder preOrderTraversalResult = traverseTree(rootNode, TRAVERSE_ORDER.PREORDER, new StringBuilder());
-        StringBuilder inOrderTraversalResult = traverseTree(rootNode, TRAVERSE_ORDER.INORDER, new StringBuilder());
-        StringBuilder postOrderTraversalResult = traverseTree(rootNode, TRAVERSE_ORDER.POSTORDER, new StringBuilder());
+        String preOrderTraversalResult = (traverseTree(rootNode, TRAVERSE_ORDER.PREORDER, new StringBuilder())).toString();
+        String inOrderTraversalResult = (traverseTree(rootNode, TRAVERSE_ORDER.INORDER, new StringBuilder())).toString();
+        String postOrderTraversalResult = (traverseTree(rootNode, TRAVERSE_ORDER.POSTORDER, new StringBuilder())).toString();
 
-        System.out.println(preOrderTraversalResult.toString());
-        System.out.println(inOrderTraversalResult.toString());
+        System.out.println("Pre-order Traversal Result: " + preOrderTraversalResult.substring(0, preOrderTraversalResult.length() - 2));
+        //System.out.println("In-order Traversal Result: " + inOrderTraversalResult.toString());
+        //System.out.println("Post-order Traversal Result: " + postOrderTraversalResult.toString());
     }
 
     public static void main(String[] args) {
