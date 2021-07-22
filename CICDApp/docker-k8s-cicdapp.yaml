@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-k8s-cicdapp-deployment
+  labels:
+    app: docker-k8s-cicdapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-k8s-cicdapp
+  template:
+    metadata:
+      labels:
+        app: docker-k8s-cicdapp
+    spec:
+      containers:
+      - name: docker-k8s-cicdapp
+        image: sarkardebanjan/cicdapprepo
+        ports:
+        - containerPort: 8080

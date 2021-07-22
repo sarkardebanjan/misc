@@ -1,0 +1,17 @@
+1. Command to build local image
+docker build -t cicdapprepo .
+
+2. Command to tag local image to docker hub repo
+docker tag cicdapprepo sarkardebanjan/cicdapprepo
+
+3. Push local image to docker hub
+docker push sarkardebanjan/cicdapprepo
+
+4. Remove local docker images
+docker rmi cicdapprepo sarkardebanjan/cicdapprepo
+
+5. Pull a docker image from docker hub
+docker run -p 8080:8080 sarkardebanjan/cicdapprepo
+
+6. Run kubernetes on Google Cloud Platform Terminal
+kubectl apply -f docker-k8s-cicdapp.yaml
