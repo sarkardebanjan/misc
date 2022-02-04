@@ -1,0 +1,23 @@
+I have been looking into this respect ttl thing. Looks like in all the solace forums they are suggesting that is setting be activated on the solace admin side.
+
+Then the ttl can be set on particular message or on connectionFactory level. 0 should mean its infinite.
+
+https://docs.solace.com/Solace-JMS-API/Setting-Message-Properties.htm#Time-to-
+
+https://docs.solace.com/Solace-JMS-API/API-Properties.htm#jms_properties_39190069_304470
+Its true by default.
+And it seems like the default ttl or any message is unlimited
+https://developer.jboss.org/thread/244849
+https://docs.solace.com/API-Developer-Online-Ref-Documentation/jms/javax/jms/MessageProducer.html#setTimeToLive-long-
+The closest thing I found in camel to this ttl thing is:
+https://camel.apache.org/components/3.13.x/eips/message-expiration.html
+
+Questions:
+1. Why is ttl thing coming up only when transacted=true?
+2. Can we not set ttl enable on all queues?
+3. Even if we configure the ttl on jndi connection factory level, solace could override it using the below property.
+
+The respect-ttl property value set at the connectionFactory level can be overridden through the InitialContext environment using SupportedProperty.SOLACE_JMS_RESPECT_TIME_TO_LIVE.
+
+Seems like we can set disableTimeToLive and timeToLive on JmsComponent or JmsConfiguration just like transacted. If we set disableTimeToLive to true, then we should be able to proceed.
+https://www.javadoc.io/doc/org.apache.camel/camel-jms/3.11.1/org/apache/camel/component/jms/JmsConfiguration.html#isDisableTimeToLive--
