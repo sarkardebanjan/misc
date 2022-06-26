@@ -81,10 +81,11 @@ public class AppConfig {
                                 exchange.getIn().setBody(tradeList);
                             }
                         })
-                        //.setBody(simple("Hello from timer at " + new Date()))
                         .to("direct:toSplit");
 
-                from("direct:toSplit").split(body()).process(postSplitProcessor);
+                from("direct:toSplit").split(body()).to("direct:afterSplit1");
+                from("direct:afterSplit1").to("direct:afterSplit2");
+                from("direct:afterSplit2").process(postSplitProcessor);
             }
         };
     }
