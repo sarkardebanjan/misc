@@ -1,0 +1,27 @@
+Command to launch a Kafka cluster with one Zookeeper and one Kafka broker. Add -d flag to run it in the background.
+docker-compose -f zk-single-kafka-single.yml up -d
+
+
+Check to make sure both the services are running:
+docker-compose -f zk-single-kafka-single.yml ps
+
+
+Log into bash:
+docker exec -it kafka1 bash
+
+
+Create a Kafka Topic:
+kafka-topics --bootstrap-server kafka1:19092 --create --topic KafkaSample-Topic1 --replication-factor 1 --partitions 1
+
+Publish message to topic:
+docker exec --interactive --ty kafka1 kafka-console-producer --bootstrap-server kafka1:19092 --topic test-topic1
+
+Consume from topic:
+docker exec --interactive --tty kafka1 kafka-console-consumer --bootstrap-server kafka1:19092 --topic test-topic1 --from-beginning
+
+
+Stop Kafka:
+docker-compose -f zk-single-kafka-single.yml stop
+
+To remove all the resources including the containers altogether:
+docker-compose -f zk-single-kafka-single.yml down
