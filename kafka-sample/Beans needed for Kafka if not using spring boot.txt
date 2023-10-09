@@ -1,0 +1,20 @@
+Beans required to create kafka component for use in camel routes:
+
+<bean id="kafkaInternal" class="org.apache.camel.component.kafka.KafkaComponent">
+	<property name="configuration" ref="kafkaConfigurationInternal" />
+</bean>
+
+<bean id="kafkaConfigurationInternal" class="org.apache.camel.component.kafka.KafkaConfiguration">
+	<property name="brokers" value="${internal.kafka.brokers}" />
+	<property name="groupId" value="${internal.kafka.groupId}" />
+	<property />
+</bean>
+
+
+
+<Optional>
+bootstrap.servers=${internal.kafka.brokers}
+key.deserializer=${internal.kafka.key.deserializer}
+group.id=${internal.kafka.groupId}
+auto.offset.reset=earliest
+value.deserializer=${internal.kafka.value.deserializer}
