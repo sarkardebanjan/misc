@@ -1,0 +1,10 @@
+Commands to start Active Mq Artemis Broker
+
+Create a Broker Instance using the command:
+artemis create mybroker
+User -> rishi
+Pwd -> rishi
+
+cd mybroker\bin\
+artemis run
+
